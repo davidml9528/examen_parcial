@@ -26,6 +26,9 @@
                     <th>Fecha de entrega</th>
                     <th>Usuario responsable</th>
                     <th>Estado de la tarea</th>
+                    <th>Ver detalles</th>
+                    <th>Editar</th>
+                    <th>Eliminar</th>
                 </thead>
                 <tbody>
                     {% for tarea in objtareas %}
@@ -35,6 +38,9 @@
                         <td>{{ tarea.fechaEntrega }}</td>
                         <td>{{ tarea.usuarioResponsable }}</td>
                         <td>{{ tarea.estadoTarea }}</td>
+                        <td><a class="btn btn-success" href="{% url 'gestion_tareas:vistaTareas' %}" >D</a></td>
+                        <td><a class="btn btn-info" href="{% url 'gestion_tareas:edicionTareas' tarea.id %}" >E</a></td>
+                        <td><button type="submit" class="btn btn-danger">X</button></td>
                     </tr>
                     {% endfor %}
                 </tbody>

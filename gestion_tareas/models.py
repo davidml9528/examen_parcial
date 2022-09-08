@@ -9,6 +9,6 @@ class usuariosRegistrados(models.Model):
 class tarea(models.Model):
     descripcion = models.CharField(max_length=128,default='')
     fechaCreacion = models.DateField(default=datetime.date.today)
-    fechaEntrega = models.DateField(null=True)
+    fechaEntrega = models.DateField(default='0')
     usuarioResponsable = models.CharField(max_length=128,default='')
     estadoTarea = models.CharField(max_length=128,default='PROGRESO')

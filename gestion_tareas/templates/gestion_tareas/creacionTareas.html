@@ -15,22 +15,22 @@
             {% csrf_token %}
                 <div class="form-group col-md-8">
                     <label>Fecha entrega</label>
-                    <input type="date" class="form-control">
+                    <input type="date" class="form-control" name="crear_fechaEntrega">
                 </div>
                 <div class="row">
                     <div class="col">
                         <label>Descripcion</label>
-                        <input type="text" class="form-control">
+                        <input type="text" class="form-control" name="crear_descripcion">
                     </div>
                     <div class="col">
                         <label>Usuario Responsable</label>
-                        <input type="text" class="form-control">
+                        <input type="text" class="form-control" name="crear_usuarioResponsable">
                     </div>
                 </div>
                 <br>
                 <div class="row">
                     <button type="submit" class="btn btn-success col"> Crear </button>
-                    <a class="btn btn-danger col" href="{% url 'gestion_tareas:dashboard'%}">Salir</a>
+                    <a class="btn btn-danger col" href="{% url 'gestion_tareas:dashboard' %}">Salir</a>
                 </div>
             </form>
         </div>

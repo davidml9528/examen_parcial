@@ -2,6 +2,8 @@ from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from gestion_tareas.models import usuariosRegistrados,tarea
 from django.urls import reverse
+from dateutil.parser import parse
+from datetime import datetime
 
 # Create your views here.
 def login (request):
@@ -41,10 +43,32 @@ def dashboard (request):
     })
 
 def creacionTareas (request):
+    if request.method == 'POST' :
+        crear_fechaEntrega = request.POST.get('crear_fechaEntrega')
+        crear_fechaEntrega = parse(crear_fechaEntrega)
+        crear_descripcion= request.POST.get('crear_descripcion')
+        crear_usuarioResponsable= request.POST.get('crear_usuarioResponsable')
+        tarea(descripcion=crear_descripcion,fechaEntrega=crear_fechaEntrega,usuarioResponsable=crear_usuarioResponsable).save()
+        return HttpResponseRedirect(reverse('gestion_tareas:dashboard'))
     return render(request,'gestion_tareas/creacionTareas.html')
 
-def edicionTareas (request):
-    return render(request,'gestion_tareas/edicionTareas.html')
+def edicionTareas (request,ind):
+    tarea_editar = tarea.objects.get(id=ind)
+    if request.method == 'POST':
+        fecha = request.POST.get('crear_fechaEntrega')
+        descrip = request.POST.get('crear_descripcion')
+        usuarioRespo = request.POST.get('crear_usuarioResponsable')
+        print(f"la fecha es {fecha}")
+        tarea_editar.fechaEntrega = fecha
+        tarea_editar.descripcion = descrip
+        tarea_editar.usuarioResponsable = usuarioRespo
+        tarea_editar.save()
+        return HttpResponseRedirect(reverse('gestion_tareas:dashboard'))
+    return render(request,'gestion_tareas/edicionTareas.html',{
+        'tarea_info': tarea_editar,
+    })
+
+
 
 def vistaTareas (request):
     return render(request,'gestion_tareas/vistaTareas.html')
