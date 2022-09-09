@@ -15,7 +15,7 @@
             {% csrf_token %}
                 <div class="form-group col-md-8">
                     <label>Fecha entrega</label>
-                    <input type="date" class="form-control" name="crear_fechaEntrega">
+                    <input type="date" class="form-control" name="crear_fechaEntrega" value="datetime.now()">
                 </div>
                 <div class="row">
                     <div class="col">

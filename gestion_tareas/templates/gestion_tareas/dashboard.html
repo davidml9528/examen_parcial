@@ -40,7 +40,9 @@
                         <td>{{ tarea.estadoTarea }}</td>
                         <td><a class="btn btn-success" href="{% url 'gestion_tareas:vistaTareas' tarea.id %}" >D</a></td>
                         <td><a class="btn btn-info" href="{% url 'gestion_tareas:edicionTareas' tarea.id %}" >E</a></td>
-                        <td><button type="submit" class="btn btn-danger">X</button></td>
+                        <td>
+                            <a class="btn btn-danger" href="{% url 'gestion_tareas:eliminarTarea' tarea.id %}" >X</a>
+                        </td>
                     </tr>
                     {% endfor %}
                 </tbody>

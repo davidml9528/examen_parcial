@@ -10,8 +10,8 @@
     </head>
     <body class="container">
         <div>
-            <h3> Editar Tarea</h3>
-            <form method="post" action="{% url 'gestion_tareas:edicionTareas' tarea_info.id %}">
+            <h3> Eliminar Tarea</h3>
+            <form method="post" action="{% url 'gestion_tareas:eliminarTarea' tarea_info.id %}">
             {% csrf_token %}
                 <div class="form-group col-md-8">
                     <label>Fecha entrega</label>
@@ -29,7 +29,7 @@
                 </div>
                 <br>
                 <div class="row">
-                    <button type="submit" class="btn btn-success col"> Crear </button>
+                    <button onclick="alert('Se va eliminar la tarea')" type="submit" class="btn btn-success col"> Eliminar </button>
                     <a class="btn btn-danger col" href="{% url 'gestion_tareas:dashboard' %}">Salir</a>
                 </div>
             </form>

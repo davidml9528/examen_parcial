@@ -9,4 +9,5 @@ urlpatterns = [
     path('creacionTareas',views.creacionTareas,name='creacionTareas'),
     path('edicionTareas/<str:ind>',views.edicionTareas,name='edicionTareas'),
     path('vistaTareas/<str:ind>',views.vistaTareas,name='vistaTareas'),
+    path('eliminarTarea/<str:ind>',views.eliminarTarea,name='eliminarTarea')
 ]

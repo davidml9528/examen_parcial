@@ -3,7 +3,7 @@ from django.http import HttpResponseRedirect
 from gestion_tareas.models import usuariosRegistrados,tarea
 from django.urls import reverse
 from dateutil.parser import parse
-from datetime import datetime
+from datetime import date,datetime
 
 # Create your views here.
 def login (request):
@@ -67,8 +67,6 @@ def edicionTareas (request,ind):
         'tarea_info': tarea_editar,
     })
 
-
-
 def vistaTareas (request,ind):
     tarea_editar = tarea.objects.get(id=ind)
     if request.method == 'POST':
@@ -81,5 +79,20 @@ def vistaTareas (request,ind):
         tarea_editar.save()
         return HttpResponseRedirect(reverse('gestion_tareas:dashboard'))
     return render(request, 'gestion_tareas/vistaTareas.html', {
+        'tarea_info': tarea_editar,
+    })
+
+def eliminarTarea (request,ind):
+    tarea_editar = tarea.objects.get(id=ind)
+    if request.method == 'POST':
+        fecha = request.POST.get('crear_fechaEntrega')
+        descrip = request.POST.get('crear_descripcion')
+        usuarioRespo = request.POST.get('crear_usuarioResponsable')
+        tarea_editar.fechaEntrega = datetime.strptime(str(fecha),'%Y-%m-%d')
+        tarea_editar.descripcion = descrip
+        tarea_editar.usuarioResponsable = usuarioRespo
+        tarea_editar.delete()
+        return HttpResponseRedirect(reverse('gestion_tareas:dashboard'))
+    return render(request, 'gestion_tareas/eliminarTarea.html', {
         'tarea_info': tarea_editar,
     })
