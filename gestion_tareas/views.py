@@ -58,7 +58,6 @@ def edicionTareas (request,ind):
         fecha = request.POST.get('crear_fechaEntrega')
         descrip = request.POST.get('crear_descripcion')
         usuarioRespo = request.POST.get('crear_usuarioResponsable')
-        print(f"la fecha es {fecha}")
         tarea_editar.fechaEntrega = fecha
         tarea_editar.descripcion = descrip
         tarea_editar.usuarioResponsable = usuarioRespo
@@ -70,5 +69,17 @@ def edicionTareas (request,ind):
 
 
 
-def vistaTareas (request):
-    return render(request,'gestion_tareas/vistaTareas.html')
+def vistaTareas (request,ind):
+    tarea_editar = tarea.objects.get(id=ind)
+    if request.method == 'POST':
+        fecha = request.POST.get('crear_fechaEntrega')
+        descrip = request.POST.get('crear_descripcion')
+        usuarioRespo = request.POST.get('crear_usuarioResponsable')
+        tarea_editar.fechaEntrega = fecha
+        tarea_editar.descripcion = descrip
+        tarea_editar.usuarioResponsable = usuarioRespo
+        tarea_editar.save()
+        return HttpResponseRedirect(reverse('gestion_tareas:dashboard'))
+    return render(request, 'gestion_tareas/vistaTareas.html', {
+        'tarea_info': tarea_editar,
+    })
