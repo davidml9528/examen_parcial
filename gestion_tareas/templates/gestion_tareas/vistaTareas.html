@@ -11,6 +11,9 @@
     <body class="container">
         <div>
             <h2 style="text-align:center;"> Vista tarea detallada</h2>
+            <div class="float-end">
+                <a class="btn btn-success" href="{% url 'gestion_tareas:finalizarTarea' tarea_info.id %}">Finalizado</a>
+            </div>
             <br>
             <form method="post" action="{% url 'gestion_tareas:vistaTareas' tarea_info.id %}">
             {% csrf_token %}

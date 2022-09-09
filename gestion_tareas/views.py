@@ -38,9 +38,14 @@ def dashboard (request):
         usuario_id.append(usuario)
     #Fin del filtrado
 
+    #Calculo de dias restantes
+
+    #Fin calculo
+
     return render(request,'gestion_tareas/dashboard.html',{
         'objtareas': usuario_id,
     })
+
 
 def creacionTareas (request):
     if request.method == 'POST' :
@@ -88,11 +93,29 @@ def eliminarTarea (request,ind):
         fecha = request.POST.get('crear_fechaEntrega')
         descrip = request.POST.get('crear_descripcion')
         usuarioRespo = request.POST.get('crear_usuarioResponsable')
-        tarea_editar.fechaEntrega = datetime.strptime(str(fecha),'%Y-%m-%d')
+        tarea_editar.fechaEntrega = fecha
         tarea_editar.descripcion = descrip
         tarea_editar.usuarioResponsable = usuarioRespo
         tarea_editar.delete()
         return HttpResponseRedirect(reverse('gestion_tareas:dashboard'))
     return render(request, 'gestion_tareas/eliminarTarea.html', {
+        'tarea_info': tarea_editar,
+    })
+
+def finalizarTarea (request,ind):
+    tarea_editar = tarea.objects.get(id=ind)
+    if request.method == 'POST':
+        fecha = request.POST.get('crear_fechaEntrega')
+        descrip = request.POST.get('crear_descripcion')
+        usuarioRespo = request.POST.get('crear_usuarioResponsable')
+        tarea_finalizada = 'FINALIZADO'
+        tarea_editar.fechaEntrega = fecha
+        tarea_editar.descripcion = descrip
+        tarea_editar.usuarioResponsable = usuarioRespo
+        tarea_editar.finalizarTarea = tarea_finalizada
+        print(tarea_editar.finalizarTarea)
+        tarea_editar.save()
+        return HttpResponseRedirect(reverse('gestion_tareas:dashboard'))
+    return render(request, 'gestion_tareas/finalizarTarea.html', {
         'tarea_info': tarea_editar,
     })
